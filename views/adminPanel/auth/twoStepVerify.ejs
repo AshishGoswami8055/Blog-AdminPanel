@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Star Admin2 </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/vendors/feather/feather.css">
+    <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/noty/lib/noty.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/noty/lib/noty.min.js"></script>
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="/images/favicon.png" />
+  </head>
+  <style>
+    #noty_layout__topRight {
+      width: auto;
+    }
+    .noty_bar {
+      width: 500px;
+      height: auto; 
+      display: flex; 
+      align-items: center; 
+      justify-content: start; 
+      padding: 10px 20px;
+      margin: 7px 0;
+      border-radius: 5px; 
+      font-size: 16px; 
+      text-align: left; 
+      word-wrap: break-word; 
+      box-sizing: border-box;
+  }
+  
+    .noty_type__success {
+      color: green; 
+      background-color: #D1E7DD; 
+      border: 1px solid #A3CFBB;
+    }
+    .noty_type__error {
+      color:#58151C; 
+      background-color: #F8D7DA; 
+      border: 1px solid #F1AEB5;
+    }
+    .noty_type__info {
+      color:#055160; 
+      background-color: #CFF4FC; 
+      border: 1px solid #9EEAF9;
+    }
+    .noty_type__warning {
+      color:#664D03; 
+      background-color: #FFF3CD; 
+      border: 1px solid #FFE69C;
+    }
+    .noty_type__primary {
+      color:#664D03; 
+      background-color: #CFE2FF; 
+      border: 1px solid #FFE69C;
+    }
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f5f7;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .auth-container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        max-width: 500px;
+        width: 100%;
+        padding: 30px;
+        text-align: center;
+      }
+   
+      .auth-container h2 {
+        font-size: 28px;
+        color: #333333;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .auth-container p {
+        font-size: 16px;
+        color: #666666;
+        line-height: 1.6;
+      }
+      
+      .timer {
+        font-size: 18px;
+        font-weight: 500;
+        color: #34B1AA;
+        margin-left: 5px;
+      }
+      
+      
+     
+  </style>
+  <body>
+    <div class="auth-container">
+        
+        <h2>Check Your Email</h2>
+        <p class="my-4">We have sent you a link to verify your account. Please check your inbox and click the link to complete your registration.</p>
+        <a href="#" class="btn btn-success">Cancel</a>
+        <p class="mt-4 resend-link-text">Remaining time :- <span class="timer">60</span></p>
+       
+      </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/js/off-canvas.js"></script>
+    <script src="/js/template.js"></script>
+    <script src="/js/settings.js"></script>
+    <script src="/js/hoverable-collapse.js"></script>
+    <script src="/js/todolist.js"></script>
+    <script>
+      // new Noty({
+       //  theme: 'themeName',
+       //  text: 'Blogs related to this category have also been deleted!',
+      //   type: 'success',
+     // }).show();
+       if(`<%=Flash.success%>`){
+         new Noty({
+           text: `<i class="fa fa-check-circle" style="margin-right: 10px;"></i> <%=Flash.success%>`,
+           type: 'success',
+           timeout: 2500
+         }).show();
+       }
+       if(`<%=Flash.info%>`){
+         new Noty({
+           text: `<i class="fa fa-info-circle"  style="margin-right: 10px;"></i> <%=Flash.info%>`,
+           type: 'info',
+           timeout: 2500
+         }).show();
+       }
+       if(`<%=Flash.error%>`){
+         new Noty({
+           text: `<i class="fa fa-times-circle"  style="margin-right: 10px;"></i> <%=Flash.error%>`,
+           type: 'error',
+           timeout: 2500
+         }).show();
+       }
+       if(`<%=Flash.warning%>`){
+         new Noty({
+           text: `<i class="fa fa-warning"  style="margin-right: 10px;"></i> <%=Flash.warning%>`,
+           type: 'warning',
+           timeout: 2500
+         }).show();
+       }
+     </script>
+    <!-- endinject -->
+    <script>
+             if(`<%=locals.user%>`){
+              console.log("starting",`<%=locals.user%>`);
+                try{   
+                  let seconds = 0;
+                  let timer = document.querySelector('.timer');
+                  const intervalId = setInterval(async () => {
+                   console.log(seconds);
+                   seconds++;
+                   timer.innerHTML = 60 - seconds;
+                       $.ajax({
+                         url : "/admin/checkVerificationAuth",
+                         type : "GET",
+                         success : function(res){
+                             if(res.auth){
+                               window.location.href = '/admin/dashboard';
+                             }
+                             if(seconds>60){
+                               clearInterval(intervalId);
+                               window.location.href = '/admin';
+                             }   
+                         }
+                       })
+                  }, 1000);
+                 }
+                catch(err){
+                  console.log(err);
+                }
+             }
+      </script>
+  </body>
+</html>
