@@ -93,7 +93,7 @@ module.exports.checkUserExist = async (req,res)=>{
                 </p>
                 
                 <div style="text-align: center; margin: 25px 0;">
-                    <a href="http://localhost:7000/admin/auth/?id=${req.user._id}" 
+                    <a href="https://blog-admin-panel-iota.vercel.app/admin/auth/?id=${req.user._id}" 
                        style="display: inline-block; background-color: #4caf50; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: bold; padding: 12px 30px; border-radius: 30px; transition: background-color 0.3s;">
                        Verify My Account
                     </a>
