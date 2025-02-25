@@ -9,7 +9,7 @@ A **full-stack blog management system** with **admin and user authentication**, 
 
 ## **🚀 Features**  
 ### **🔹 Admin Features:**  
-✅ **CRUD Operations** for Blogs, Categories, and Users  
+✅ **CRUD Operations** for Blogs, Categories, and Users with Images  
 ✅ **Admin Dashboard** (Total Users, Blogs, Likes, Dislikes, and Comments)  
 ✅ **Login with Passport.js (Local Strategy)**  
 ✅ **OTP-Based Password Reset**  
