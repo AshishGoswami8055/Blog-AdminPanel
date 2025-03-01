@@ -1,0 +1,92 @@
+
+<%- include("../Layouts/header.ejs") %>
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Default form</h4>
+            <p class="card-description"> Basic form layout </p>
+            <form class="forms-sample" method="post" action="/admin/editAdmin" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="exampleInputUsername1">Name</label>
+                <input type="hidden" class="form-control" id="exampleInputUsername1" name="id" value="<%=AdminData._id%>">
+                <input type="text" class="form-control" id="exampleInputUsername1" name="name" value="<%=AdminData.name%>" placeholder="Enter Name">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<%=AdminData.email%>" placeholder="Enter Email">
+              </div>
+              <!-- <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password" value="" placeholder="Enter Password">
+              </div> -->
+              <div class="form-group">
+                <label>File upload</label>
+                <input type="file" name="adminImage" class="file-upload-default">
+                <div class="input-group col-xs-12">
+                  <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                  <span class="input-group-append">
+                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                  </span>
+                </div>
+                <img src="<%=AdminData.adminImage%>" width="120px"  alt="adminImage">
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Gender</label>
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="gender" id="membershipRadios1" <%=AdminData.gender == 'male'?"checked":""%> value="male" > Male </label>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="gender" id="membershipRadios2" <%=AdminData.gender == 'female'?"checked":""%> value="female"> Female </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group d-flex justify-content-between">
+                <label class=" col-form-label">Hobby</label>
+                <div class="form-check form-check-primary">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="hobby" value="Travelling" class="form-check-input" <%=AdminData.hobby.includes('Travelling')?"checked":""%> > Travelling </label>
+                </div>
+                <div class="form-check form-check-success">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="hobby" value="Music" class="form-check-input" <%=AdminData.hobby.includes('Music')?"checked":""%> > Music </label>
+                </div>
+                <div class="form-check form-check-info">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="hobby" value="Learning" class="form-check-input" <%=AdminData.hobby.includes('Learning')?"checked":""%> > Learning </label>
+                </div>
+                <div class="form-check form-check-danger">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="hobby" value="Photography" class="form-check-input" <%=AdminData.hobby.includes('Photography')?"checked":""%> > Photography </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleTextarea1">Textarea</label>
+                <textarea class="form-control" name="description" id="exampleTextarea1"  placeholder="Enter Message" rows="4"><%=AdminData.description%></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Update Data</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <!-- partial:../../partials/_footer.html -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+      <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights reserved.</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+
+<%- include("../Layouts/footer.ejs") %>

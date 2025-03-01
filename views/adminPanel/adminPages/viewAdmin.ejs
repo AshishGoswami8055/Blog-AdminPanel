@@ -1,0 +1,64 @@
+<%- include('../Layouts/header.ejs') %>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Admin Data</h4>
+                    <p class="card-description"> Add class <code>.table-bordered</code>
+                    </p>
+                    <div class="table-responsive pt-3">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Image </th>
+                            <th> Name</th>
+                            <th> Email </th>
+                            <th> Gender </th>
+                            <th> Hobby </th>
+                            <th> Description </th>
+                            <th colspan="2"> Actions </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <% AdminData.map((v,i)=>{ %>
+                            <tr>
+                              <td> <%=++i%> </td>
+                              <td> <img src="<%=v.adminImage%>" width="500px" alt="adminImage"> </td>
+                              <td> <%=v.name%></td>
+                              <td> <%=v.email%> </td>
+                              <td> <%=v.gender%> </td>
+                              <td> <%=v.hobby%> </td>
+                              <td> <%=v.description%> </td>
+                              <td> <a href="/admin/deleteAdmin/?id=<%=v._id%>" class="btn btn-inverse-danger">Delete</a> </td>
+                              <td> <a href="/admin/updateAdmin/?id=<%=v._id%>" class="btn btn-inverse-info">Update</a> </td>
+                              
+                            </tr>
+                        <% }) %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+              <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights reserved.</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+<%- include('../Layouts/footer.ejs') %>

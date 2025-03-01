@@ -1,0 +1,72 @@
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center p-4">
+        <div class="text-2xl font-bold text-gray-800">
+            <a href="/">NewsBlog</a>
+        </div>
+        <div class="hidden md:flex space-x-4">
+            <!-- <a href="/userLogin" class="text-gray-600 hover:text-gray-900">Login</a>
+            <a href="/userSignUp" class="text-gray-600 hover:text-gray-900">Signup</a> -->
+            <% if(locals.user){ %>
+               
+                <a href="" class="flex text-gray-600 hover:text-gray-900">
+                     <span>
+                        <% if(locals.user.profileImage){ %>
+                            <img src="<%= locals.user.profileImage %>" width="25px" style="border-radius: 50%; margin-right: 5px" alt="<%= locals.user.profileImage %>">
+                        <% } else { %>
+                            <span style="
+                            display: inline-block;
+                            width: 25px; height: 25px; 
+                            margin-right: 5px;
+                            border-radius: 50%; 
+                            background-color: #007bff; 
+                            color: white; 
+                            line-height: 25px;
+                            font-size: 16px; 
+                            display: flex; 
+                            justify-content: center; 
+                            align-items: center;">
+                            <%= locals.user.username.charAt(0).toUpperCase() %>
+                        </span>
+                        <% } %>
+                    </span>
+                    <%= locals.user.username%>
+                </a>
+            <% } else { %>
+                <a href="/userLogin" class="text-gray-600 hover:text-gray-900">Login</a>
+            <% } %>
+            <% if(locals.user){ %>
+                <a href="/logout" class="text-gray-600 hover:text-gray-900">Logout</a>
+            <% } else { %>
+                <a href="/userSignUp" class="text-gray-600 hover:text-gray-900">Signup</a>
+            <% } %>
+        </div>
+        <button id="burger-menu" class="md:hidden text-gray-600 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </div>
+    <nav id="mobile-menu" class="hidden bg-gray-100 md:hidden">
+        <% if(locals.user){ %>
+            <img src="<%= locals.user.profileImage %>" width="25px" style="border-radius: 50%;" alt="<%= locals.user.profileImage %>">
+            <a href="/userSignUp" class="text-gray-600 hover:text-gray-900"><%= locals.user.username%></a>
+        <% } else { %>
+            <a href="/userLogin" class="text-gray-600 hover:text-gray-900">Login</a>
+        <% } %>
+        <% if(locals.user){ %>
+            <a href="/logout" class="text-gray-600 hover:text-gray-900">Logout</a>
+        <% } else { %>
+            <a href="/userSignUp" class="text-gray-600 hover:text-gray-900">Signup</a>
+        <% } %>
+    </nav>
+</header>
+<div class="bg-gray-800 text-white py-2 text-sm">
+    <div class="container mx-auto flex justify-center items-center">
+        <nav class="space-x-4">
+            <a href="#" class="hover:underline">All (<%= totalBlogs %>)</a>
+            <% categories.map((v, i)=>{ %>
+                <a href="#" class="hover:underline"><%=v.categoryName%> <%if(v.blogsIds.length > 0 ){%>(<%=v.blogsIds.length%>)<%}%></a>
+            <% }) %>
+        </nav>
+    </div>
+</div>

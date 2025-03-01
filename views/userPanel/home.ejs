@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Blog Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<style>
+    
+    /* Optional: Ensure all articles are of equal height */
+    article {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    article {
+        width: 430px!important;
+        height: 400px; /* Adjust as needed */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    article p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limits description to 3 lines */
+        -webkit-box-orient: vertical;
+    }
+    article img{
+        height: 200px!important;
+        object-fit: cover!important; 
+    }
+    article{
+        position: relative;
+    }
+    .time {
+        color: rgb(155, 71, 71);
+        position: absolute;
+        bottom: 10px;
+        left: 16px;
+    }
+</style>
+<body class="bg-gray-100 font-sans">
+    <!-- Top Header -->
+   
+
+    <!-- Main Header with Burger Menu -->
+    <%- include("header")%>
+
+    <!-- Hero Section -->
+    <section class="bg-gray-900 text-white py-10">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h1 class="text-4xl font-bold mb-4">Latest News and Trending Stories</h1>
+                <p class="text-lg mb-6">Stay updated with the most current and breaking news across the world, from politics to entertainment.</p>
+                <a href="#" class="bg-red-500 text-white px-4 py-2 rounded-lg text-lg hover:bg-red-600">Read More</a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Featured Articles -->
+    <section class="py-10">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Featured Articles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <% blogData.map((v, i) => { %>
+                    <a href="/singlePage/<%= v.id %>">
+                        <article class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col">
+                            <img src="<%= v.blogImage %>" alt="Article 1" class="w-full object-cover object-center">
+                            <div class="p-4 flex-1">
+                                <h3 class="font-bold text-lg mb-2"><%= v.title.length > 80 ? v.title.substring(0 ,80) + '...' : v.title %></h3>
+                                <p class="text-gray-600 line-clamp-3">
+                                    <%- v.description.length > 100 ? v.description.substring(0, 80) + '... <span class="text-blue-500">Read More</span>' : v.description %>
+                                </p>
+                                <p class="time text text-primary"><%=v.time%></p>
+                            </div>
+                        </article>
+                    </a>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Latest News Section -->
+    <section class="py-10 bg-gray-100">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Latest News</h2>
+            <% blogData.map((v, i) => { %>
+            <a href="/singlePage/<%=v.id%>">
+                <div class="bg-white my-3 shadow-md rounded-lg overflow-hidden">
+                    <div class="p-4">
+                        <p class="text-red-600 categories"><%=v.categoryId.categoryName%></p>
+                        <h3 class="font-bold text-lg mb-2"><%= v.title %></h3>
+                        <p class="text-gray-600"><%= v.description %></p>
+                        <a href="#" class="text-blue-500 hover:underline">Read more</a> <br><br>
+                        <p style="color: #B91C1C;"><%= v.time%></p>
+                    </div>
+                </div>
+            </a>
+            <% }) %>
+        </div>
+    </section>
+
+    <!-- Unique Design Section -->
+    <section class="py-10">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Explore More</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Tech Updates</h3>
+                    <p class="text-gray-300">Discover the latest innovations in technology, from AI to VR.</p>
+                </div>
+                <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Health Insights</h3>
+                    <p class="text-gray-300">Get tips and tricks to lead a healthier lifestyle every day.</p>
+                </div>
+                <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">World Affairs</h3>
+                    <p class="text-gray-300">Stay informed on global events shaping the future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 NewsBlog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const burgerMenu = document.getElementById('burger-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        burgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

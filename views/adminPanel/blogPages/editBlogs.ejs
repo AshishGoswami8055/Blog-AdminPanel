@@ -1,0 +1,82 @@
+
+<%- include("../Layouts/header.ejs") %>
+<style>
+  .form-group textarea{
+    height: 100%!important;
+  }
+</style>
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Blog form</h4>
+            <p class="card-description"> Insert Blog </p>
+            <form class="forms-sample" method="post" action="/admin/blogs/updateBlogs">
+             <input type="hidden" name="id" value="<%=blogData.id%>">
+             <input type="text" name="previousCat" value="<%=blogData.categoryId.id%>">
+              <div class="form-group">
+                <label for="exampleInputUsername1">Category</label>
+                <select name="categoryId" class="form-control" id="">
+                    <option value="">--Select Category--</option>
+                    <% categoryData.map((v,i)=>{%>
+                    <option value="<%=v._id%>" <%= blogData.categoryId.id == v._id ? "selected" : "" %>><%=v.categoryName%></option>
+                    <%})%>
+                </select>
+                
+                
+              </div>   
+              <div class="form-group">
+                <label for="exampleInputUsername1">Title</label>
+                <input type="text" class="form-control" id="exampleInputUsername1" value="<%=blogData.title%>" name="title" placeholder="Enter Blog Title">
+              </div>              
+              <div class="form-group">
+                <label for="exampleTextarea1">Description</label>
+                <textarea class="form-control" name="description" id="exampleTextarea1" placeholder="Enter Blog Description" rows="4"><%=blogData.description%></textarea>
+              </div>
+              <div class="form-group">
+                <label for="exampleTextarea1">Content</label>
+                <textarea class="form-control" name="blogContent" id="exampleTextarea2" placeholder="Enter Blog Content" rows="4"><%-blogData.blogContent%></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary me-2">Update Blog</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <!-- partial:../../partials/_footer.html -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+      <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights reserved.</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+
+<%- include("../Layouts/footer.ejs") %>
+
+<script src="https://cdn.tiny.cloud/1/x9aqy1rx8k6usruut0qgexlm86g0p2y6uke7ktr2iy1f2sw2/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#exampleTextarea2',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Feb 5, 2025:
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+  });
+</script>

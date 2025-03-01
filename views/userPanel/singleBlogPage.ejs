@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Article - Market Hits Record High</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/fonts/remix/remixicon.css">
+    <style>
+        .comment {
+            border-left: 2px solid #f1f1f1;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+        }
+
+        .comment-box {
+            background-color: #f9f9f9;
+        }
+
+        .reply {
+            padding-left: 20px;
+        }
+
+        .comment-time {
+            font-size: 0.875rem;
+            color: #8e8e8e;
+        }
+
+        .like-btn,
+        .dislike-btn {
+            cursor: pointer;
+            color: #8e8e8e;
+            transition: color 0.3s;
+        }
+
+        .like-btn:hover,
+        .dislike-btn:hover {
+            color: #0073e6;
+        }
+
+        .like-count,
+        .dislike-count {
+            margin-left: 6px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <%- include("header")%>
+
+    <!-- Main Header with Burger Menu -->
+    
+    
+    <!-- Main Content Section -->
+    <section class="bg-white py-10">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Main Article -->
+            <div class="md:col-span-2">
+                <article class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h1 class="text-3xl font-bold text-gray-800 mb-4"><%= singleBlogData.title%></h1>
+                        <p class="text-lg text-gray-700 mb-4"><%= singleBlogData.decription%></p>
+                        <p class="text-gray-600 mb-6">The market’s steady climb is attributed to various factors, including robust earnings reports from major corporations and a surge in consumer confidence. Experts are weighing in on how this trend could shape the economy moving forward.</p>
+                        <%- singleBlogData.blogContent%>
+                        <br>
+                        <p style="color: #B91C1C;"><%=singleBlogData.time%></p>
+                    </div>
+                </article>
+
+                <!-- Comments Section -->
+                <section class="mt-10">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Comments</h2>
+
+                    <div class="comment-box p-6 rounded-lg shadow-md">
+                        <!-- Add Comment Input -->
+                        <div class="mb-4">
+                            <form method="post" action="/uploadComments">
+                                <input type="hidden" name="blogId" value="<%=singleBlogData.id%>" placeholder="Add a comment..." class="w-full p-2 border border-gray-300 rounded-lg mb-4">
+                                <input type="text" name="comments" placeholder="Add a comment..." class="w-full p-2 border border-gray-300 rounded-lg mb-4">
+                                <% if(locals.user){ %>
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Post Comment</button>
+                                <% } else { %>
+                                    <a href="/userLogin" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Post Comment</a>
+                                <% } %>
+                            </form>
+                        </div>
+
+                        <!-- Existing Comments -->
+                        <% commentsData.map((v,i)=>{ %>
+                            <div class="comment mb-6">
+                                <div class="flex items-start space-x-4">
+                                    <% if(v.userId.profileImage){ %>
+                                        <img src="<%= v.userId.profileImage %>" width="40px" style="border-radius: 50%; margin-right: 5px" alt="<%= v.userId.profileImage %>">
+                                    <% } else { %>
+                                        <span style="
+                                        display: inline-block;
+                                        width: 40px; height: 40px; 
+                                        margin-right: 5px;
+                                        border-radius: 50%; 
+                                        background-color: #007bff; 
+                                        color: white;
+                                        font-weight:500; 
+                                        line-height: 40px;
+                                        font-size: 16px; 
+                                        display: flex; 
+                                        justify-content: center; 
+                                        align-items: center;">
+                                        <%= v.userId.username.charAt(0).toUpperCase() %>
+                                    </span>
+                                    <% } %>
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between items-center">
+                                            <div class="text-gray-800 font-semibold"><%=v.userId.username%></div>
+                                            <div class="text-sm text-gray-500 comment-time"><%=v.time%></div>
+                                        </div>
+                                        <p class="text-gray-600"><%= v.comments %></p>
+                                        <div class="flex items-center space-x-4 mt-2">
+                                            <% if (locals.user) { %>
+                                                <div class="flex items-center">
+                                                    <a href="/like/<%= v._id %>">
+                                                        <i class="<%= v.likes.includes(locals.user._id) ? 'ri-thumb-up-fill' : 'ri-thumb-up-line' %>"></i>
+                                                        <span><%= v.likes.length %></span>
+                                                    </a>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <a href="/dislike/<%= v._id %>">
+                                                        <i class="<%= v.dislikes.includes(locals.user._id) ? 'ri-thumb-down-fill' : 'ri-thumb-down-line' %>"></i>
+                                                        <span><%= v.dislikes.length %></span>
+                                                    </a>
+                                                </div>
+                                            <% } else { %>
+                                                <div class="flex items-center">
+                                                    <a href="/userLogin">
+                                                        <i class="ri-thumb-up-line"></i>
+                                                        <span><%= v.likes.length %></span>
+                                                    </a>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <a href="/userLogin">
+                                                        <i class="ri-thumb-down-line"></i>
+                                                        <span><%= v.dislikes.length %></span>
+                                                    </a>
+                                                </div>
+                                            <% } %>
+                                            
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+
+                       
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar: Related Articles -->
+            <div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Related Articles to <span class="text text-danger"><%=singleBlogData.categoryId.categoryName%></span></h3>
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <ul class="divide-y divide-gray-200">
+                        <% blogData.map((v, i) => { %>
+                            <% if(singleBlogData.id != v.id && singleBlogData.categoryId.categoryName == v.categoryId.categoryName) { %>
+                                <li class="py-2">
+                                    <a href="/singlePage/<%=v.id%>" class="block text-red-700 hover:text-blue-600 font-medium transition duration-200">
+                                        <%= v.title %>
+                                    </a>
+                                </li>
+                            <% } %>
+                        <% }) %>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 NewsBlog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const burgerMenu = document.getElementById('burger-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        burgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
